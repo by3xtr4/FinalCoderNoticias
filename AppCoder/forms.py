@@ -5,9 +5,12 @@ from django.contrib.auth.models import User
 
 class CursoFormulario(forms.Form):
     #Especificar los campos
-    nombre = forms.CharField(max_length=40)
-    camada = forms.CharField(max_length=40)
-
+    titulo = forms.CharField(max_length=100)
+    subtitulo = forms.CharField(max_length=100)
+    descripcion = forms.CharField(max_length=500)
+    autor = forms.CharField(max_length=40)
+    video = forms.CharField(max_length=40)
+    
 
 class ConsultasFormulario(forms.Form):
     nombre= forms.CharField(max_length=30)
@@ -15,7 +18,6 @@ class ConsultasFormulario(forms.Form):
     detalle = forms.CharField(max_length=500)
 
 class UserRegisterForm(UserCreationForm):
-    # email = forms.EmailField()
     password1 = forms.CharField(label= 'Contraseña', widget= forms.PasswordInput)
     password2 = forms.CharField(label= 'repite la contraseña', widget=forms.PasswordInput)
     last_name: forms.CharField()
@@ -28,10 +30,7 @@ class UserRegisterForm(UserCreationForm):
         help_texts= {k:"" for k in fields}
 
 
-
 class UserEditForm(UserCreationForm): 
-    #definimos lo básico para modificar del usuario
-
     email = forms.EmailField(label='modificar email')
     password1 = forms.CharField(label='contraseña', widget=forms.PasswordInput)
     password2 = forms.CharField(label= 'repita contraseña', widget=forms.PasswordInput)

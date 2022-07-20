@@ -11,11 +11,15 @@ class Consultas(models.Model):
         return f"Nombre: {self.nombre} - Email {self.email} - detalle_usuario {self.detalle}"
 
 class Cursos(models.Model):
-    nombre= models.CharField(max_length=30, null=True)
-    camada = models.CharField(max_length=30, null=True)
+    autor= models.CharField(max_length=30, null=True)
+    video = models.CharField(max_length=30, null=True)
+    titulo = models.CharField(max_length=100, null=True)
+    subtitulo = models.CharField(max_length=200, null=True)
+    descripcion = models.CharField(max_length=500, null=True)
+    fecha = models.DateField(max_length=20, null=True)
 
     def __str__(self):
-        return f"Nombre: {self.nombre} - Camada {self.camada} "
+        return f"Autor: {self.autor} - video {self.video}- Titulo {self.titulo} -  Subtitulo {self.subtitulo} - Descripcion {self.descripcion}"
 
 class Avatar(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -15,26 +15,26 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
-#estas son mis url, diferentes vistas.
+# ***********************************************************************
+# inicio, solo vista
 def inicio(request): #vista inicio
       return render(request, "AppCoder/inicio.html")
 
+# ***********************************************************************
+# presentación, solo vista
 def nosotros(request):#vista usuarios
       return render(request, "AppCoder/nosotros.html")
 
-def leerUsuarios(request):
-      profesores = Usuarios.objects.all() #trae todos los profesores
-      contexto= {"usuarios":profesores} 
-      return render(request, "AppCoder/leerUsuarios.html",contexto)
-
-# cursos, clases
+# ***********************************************************************
+# INICIO CURSOS
+@login_required
 def leerCursos(request):
       cursos = Cursos.objects.all() #trae todos los profesores
       contexto= {"cursos":cursos} 
       return render(request, "AppCoder/leerCursos.html",contexto)
 
-def eliminarCurso(request, nombre):
-      curso = Cursos.objects.get(nombre=nombre)
+def eliminarCurso(request, video):
+      curso = Cursos.objects.get(video=video)
       curso.delete()
       cursos = Cursos.objects.all() #trae todos los profesores
       contexto= {"cursos":cursos} 
@@ -53,7 +53,7 @@ def cursoFormulario(request):#vista usuarios, la edito para que guarde
                   print(miFormulario)
 
                   informacion = miFormulario.cleaned_data
-                  defino_curso = Cursos (nombre=informacion['nombre'], camada=informacion['camada']) 
+                  defino_curso = Cursos (autor=informacion['autor'], video=informacion['video'], titulo=informacion['titulo'], subtitulo=informacion['subtitulo'], descripcion=informacion['descripcion'], fecha=datetime.now()) 
                   defino_curso.save()
                   return render(request, "AppCoder/curso_registrado.html", {"mensaje":"Noticia creada con éxito"}) #Vuelvo al inicio o a donde quieran
 
@@ -64,10 +64,10 @@ def cursoFormulario(request):#vista usuarios, la edito para que guarde
       return render(request, "AppCoder/cursoformulario.html", {"miFormulario":miFormulario})
 
 
-def editarCurso(request, curso_name):
+def editarCurso(request, titulo):
 
       #Recibe el nombre del profesor que vamos a modificar
-      curso = Cursos.objects.get(nombre=curso_name)
+      curso = Cursos.objects.get(titulo=titulo)
 
       #Si es metodo POST hago lo mismo que el agregar
       if request.method == 'POST':
@@ -79,23 +79,31 @@ def editarCurso(request, curso_name):
             if miFormulario.is_valid:   #Si pasó la validación de Django
 
                   informacion = miFormulario.cleaned_data
-                  curso.nombre = informacion['nombre']
-                  curso.camada = informacion['camada']
-                  # curso.fecha = datetime()
+                  curso.autor = informacion['autor']
+                  curso.video = informacion['video']
+                  curso.titulo = informacion['titulo']
+                  curso.subtitulo = informacion['subtitulo']
+                  curso.descripcion = informacion['descripcion']
+                  curso.fecha  = datetime.now()
 
                   curso.save() #guardo
 
-                  return render(request, "AppCoder/curso_editado.html", {"mensaje":"Curso actualizado con éxito"}) #Vuelvo al inicio o a donde quieran
+                  return render(request, "AppCoder/curso_listo.html", {"mensaje":"Curso actualizado con éxito"}) #Vuelvo al inicio o a donde quieran
       #En caso que no sea post
       else: 
             #Creo el formulario con los datos que voy a modificar
-            miFormulario= CursoFormulario(initial={'nombre': curso.nombre, 'camada':curso.camada}) 
+            miFormulario= CursoFormulario(initial={'autor': curso.autor, 'video':curso.video, 'titulo':curso.titulo, 'subtitulo':curso.subtitulo, 'descripcion':curso.descripcion, 'fecha':curso.fecha }) 
 
       #Voy al html que me permite editar
-      return render(request, "AppCoder/editarCurso.html", {"miFormulario":miFormulario, "curso_name":curso_name})
+      return render(request, "AppCoder/editarCurso.html", {"miFormulario":miFormulario, "titulo":titulo})
+
+# ***********************************************************************
+# FIN CURSOS
+
 
 
 # ***********************************************************************
+# INICIO CONSULTAS, MENSAJES
 
 
 def leerConsultas(request):
@@ -103,38 +111,13 @@ def leerConsultas(request):
       contexto= {"consultas":consultas} 
       return render(request, "AppCoder/leerConsultas.html",contexto)
 
+@login_required
 def eliminarConsulta(request, id):
       consulta = Consultas.objects.get(id=id)
       consulta.delete()
       consultas = Consultas.objects.all() 
       contexto= {"consultas":consultas} 
       return render(request, "AppCoder/leerConsultas.html",contexto)
-
-
-
-
-
-#usuarios,
-def productosFormulario(request):#vista usuarios, la edito para que guarde
-      if request.method == 'POST':
-
-            miFormulario = ProductosFormulario(request.POST) #aquí mellega toda la información del html - sale de models
-
-            print(miFormulario)
-
-            if miFormulario.is_valid:   #Si pasó la validación de Django
-                  print(miFormulario)
-
-                  informacion = miFormulario.cleaned_data
-                  guardo_producto = Productos (nombre=informacion['nombre'], email=informacion['email'], consulta=informacion['consulta']) 
-                  guardo_producto.save()
-                  return render(request, "AppCoder/producto_registrado.html") #Vuelvo al inicio o a donde quieran
-
-      else: 
-
-            miFormulario= ProductosFormulario() #Formulario vacio para construir el html
-
-      return render(request, "AppCoder/productosformulario.html", {"miFormulario":miFormulario})
 
 @login_required
 def consultasFormulario(request):#vista usuarios, la edito para que guarde
@@ -158,14 +141,8 @@ def consultasFormulario(request):#vista usuarios, la edito para que guarde
 
       return render(request, "AppCoder/consultasFormulario.html", {"miFormulario":miFormulario})
 
-
-
-
-def productos(request):#vista productos
-      return render(request, "AppCoder/productos.html")
-
-def newsletter(request):#vista newsletter
-      return render(request, "AppCoder/newsletter.html")
+# ********************************************************************
+# FIN MENSAJES
 
 
 
@@ -185,54 +162,10 @@ def buscar(request):
 	      respuesta = "No enviaste datos"
       return render(request,"AppCoder/cursos.html", {"respuesta":respuesta})
 
-#inicio busqueda cursos inicialmente,
-# def buscarUsuario(request):
 
-#       if  request.GET["nombre"]: 
-#             nombre = request.GET['nombre'] 
-#             print(nombre)
-#             registros = Usuarios.objects.filter(nombre__icontains=nombre)
-#             print(registros)
-#             return render(request, "AppCoder/resultadoUsuarios.html", {"usuarios":registros, "nombre":nombre})
-#       else: 
+# ***********************************************************************
+# INICIO LOGIN
 
-# 	      respuesta = "No enviaste datos"
-#       return render(request,"AppCoder/usuarios.html", {"respuesta":respuesta})
-
-
-def buscarUsuario(request):
-
-      if  request.GET["nombre"]: #if request.method == 'Get':
-
-	      #respuesta = f"Estoy buscando la camada nro: {request.GET['camada'] }" 
-            nombre = request.GET['nombre'] 
-            print(nombre)
-            busuarios = Usuarios.objects.filter(nombre__icontains=nombre)
-            print(busuarios)
-            return render(request, "AppCoder/resultadoUsuarios.html", {"busuarios":busuarios, "nombre":nombre})
-
-      else: 
-
-	      respuesta = "No enviaste datos"
-
-      #No olvidar from django.http import HttpResponse
-      return render(request,"AppCoder/usuarios.html", {"respuesta":respuesta})
-
-
-def buscarProducto(request):
-
-      if  request.GET["nombre"]: #if request.method == 'Get':
-            producto = request.GET['nombre'] 
-            print(producto)
-            bproductos = Productos.objects.filter(nombre__icontains=producto)
-            print(bproductos)
-            return render(request, "AppCoder/resultadoProductos.html", {"bproductos":bproductos, "nombre":producto})
-      else: 
-	      respuesta = "No enviaste datos"
-
-      return render(request,"AppCoder/productos.html", {"respuesta":respuesta})
-
-#iniciamos el login
 def login_request(request):
       #capturamos el post
       if request.method == "POST":
@@ -260,9 +193,6 @@ def login_request(request):
       return render(request, "AppCoder/login.html", {'form': form})
 
 
-
-
-
 def register(request):
       if request.method == "POST":
             form = UserRegisterForm(request.POST)
@@ -278,8 +208,6 @@ def register(request):
             form = UserRegisterForm()
 
       return render(request, "AppCoder/registro.html", {"form": form})
-
-
 
 
 @login_required
@@ -308,3 +236,5 @@ def editarPerfil(request):
       return render(request, "AppCoder/editarPerfil.html", {"miFormulario": miFormulario, "usuario": usuario})
 
 
+# ***********************************************************************
+# FIN LOGIN
