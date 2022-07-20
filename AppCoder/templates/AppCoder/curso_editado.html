@@ -1,0 +1,54 @@
+{% extends "AppCoder/master.html" %}
+
+{% load static %}
+
+{% block contenidoSecciones %}
+<header style="height: 100px;  background-color: rgb(35, 36, 35); padding-top: 60px; height: 180px; ">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h3 class="mb-1">NOTICIAS EDITAR</h3>
+                    <h5 class="mb-2">Estás editando</h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<footer class="footer bg-light">
+    <div class="container">
+        <div class="row" style="max-width: 600px; margin-left: auto; margin-right:auto">
+            <p>
+                <center>
+                    <!-- creo el form -->
+                    <center>
+                            <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
+    <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
+    <!--Aquí va lo que cambia, y lo asociado a está vista :) -->    
+    {% if miFormulario.errors %}
+
+    <p style="color: red;"> Están mal los datos, revisar</p>
+
+    {% endif %}
+
+    
+
+                <center>
+                    <p style="color: red;"> {{mensaje}}</p>
+                    <a class="navbar-brand" href="{% url 'Cursos' %}">Volver al listado de noticias</a>
+
+
+                </center>
+                    
+    
+
+            </p>
+
+        </div>
+    </div>
+</footer>
+
+{% endblock %}

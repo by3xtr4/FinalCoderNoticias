@@ -1,0 +1,73 @@
+{% extends "AppCoder/master.html" %}
+
+{% load static %}
+
+{% block contenidoSecciones %}
+<header style="height: 100px;  background-color: rgb(35, 36, 35); padding-top: 60px; height: 150px; ">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h3 class="mb-1">Mensajes</h3>
+                    <h5 class="mb-2">Todos los mensajes enviados</h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<footer class="footer bg-light">
+    <div class="container">
+        <div class="row">
+          
+            <p>
+                    <CENTER><h3>MENSAJES ENVIADOS | <a href="{% url 'ConsultasFormulario' %}" style="color: red;">Dejar un mensaje ahora</a>
+                        
+                        {% if request.user.is_authenticated %}
+                        </h3>
+                        {% endif %}
+                    
+                    </CENTER>
+                    <HR>
+                    
+                    {% for sms in consultas %}
+                    <center>
+                        <div style="padding: 10px">
+                            <h6 style="padding-bottom: 0px; margin-bottom: 0px;">{{sms.nombre}} | {{sms.email}} </h6>
+                        </div>
+                        <div style="padding: 0px">
+                            {{sms.detalle}}<br>
+                            
+                        {% if request.user.is_authenticated %}
+                            {% if user.id == 1 %}
+                            <a href="{% url 'EliminarConsulta' sms.id %}" style="color: red;"> Eliminar</a>
+                            {% endif %}
+                        {% endif %}
+
+                        </div>
+                        <hr>                    
+                    </center>    
+
+                        
+ 
+                    
+                      
+                   
+                    
+            
+            
+                    {% endfor %}
+            
+
+            </p>
+
+        </div>
+    </div>
+</footer>
+
+
+
+
+{% endblock %}

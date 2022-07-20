@@ -1,0 +1,66 @@
+{% extends "AppCoder/master.html" %}
+
+{% load static %}
+
+{% block contenidoSecciones %}
+<header style="height: 100px;  background-color: rgb(126, 129, 126); padding-top: 60px; height: 200px; ">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h3 class="mb-1">USUARIOS</h3>
+                    <h3>{{mensaje}}</h3>
+
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<footer class="footer bg-light">
+    <div class="container">
+        <div class="row">
+
+            <h3>Podes buscar un usuario por su nombre:</h3>
+                    <form action="/AppCoder/buscarUsuario/" method="GET">
+
+                        <input type="text" name="nombre" id="nombre" class="form-control form-control-lg" style="width: 80%; float: left">
+                    
+                        <input type="submit" value="Buscar" class="btn btn-primary btn-lg">
+                    
+                    </form>
+            <p>
+                <center>
+                    
+<BR><BR>
+                <a class="navbar-brand" href="usuarioFormulario">Registrar un usuario </a>
+            </center>
+
+            </p>
+
+        </div>
+    </div>
+</footer>
+
+<footer class="footer bg-light">
+    <div class="container">
+        <div class="row">
+            <p>
+                <center>
+<br><br>
+                    <a class="navbar-brand" href="usuarioFormulario">Registrar otro usuario </a>
+
+
+                </center>
+
+            </p>
+
+        </div>
+    </div>
+</footer>
+
+
+{% endblock %}

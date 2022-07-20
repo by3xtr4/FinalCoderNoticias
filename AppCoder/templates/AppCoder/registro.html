@@ -1,0 +1,57 @@
+{% extends "AppCoder/master.html" %}
+
+{% load static %}
+
+{% block contenidoSecciones %}
+<header style="height: 100px;  background-color: rgb(35, 36, 35); padding-top: 60px; height: 180px; ">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h3 class="mb-1">Registrarse</h3>
+                    <h5 class="mb-2">Completa el proceso, podrás ingresar a ver las noticias y dejarnos tu saludo en la sección mensajes!</h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<footer class="footer bg-light">
+    <div class="container">
+        <div class="row" style="max-width: 600px; margin-left: auto; margin-right:auto">
+            <p>
+                <center>
+                    <!-- creo el form -->
+                    <center>
+                    Todos los campos son importantes!
+                </center>
+                    <hr>
+                    <center>
+                        <!-- condiciono y traigo django-->
+                        {% if miFormulario.errors %}
+                        <p style="color: red; ">Están mal algunos datos o falta información</p>
+                        {% endif %}
+    
+                        <!-- creo el form -->
+                        <form action="" method="POST" class="form-control form-control-lg">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            <button type="submit">Registrar</button>
+                        </form>
+
+                       
+                    
+    
+                    </center>
+
+                </center>
+
+            </p>
+
+        </div>
+    </div>
+</footer>
+
+{% endblock %}

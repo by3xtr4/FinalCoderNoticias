@@ -1,0 +1,48 @@
+{% extends "AppCoder/master.html" %}
+
+{% load static %}
+
+{% block contenidoSecciones %}
+<header style="height: 100px;  background-color: forestgreen; padding-top: 60px; height: 200px; ">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h3 class="mb-1">CURSOS</h3>
+
+                    <h5 class="mb-2">muestro el contenenido de los cursos</h5>
+
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<footer class="footer bg-light">
+    <div class="container">
+        <div class="row">
+
+            <h3>Podes buscar una camada:</h3>
+                    <form action="/AppCoder/buscar/" method="GET">
+
+                        <input type="number" name="camada" id="camada" class="form-control form-control-lg" style="width: 80%; float: left">
+                    
+                        <input type="submit" value="Buscar" class="btn btn-primary btn-lg">
+                    
+                    </form>
+            <p>
+                <center>Aca tendría que poder llamar a los registros de lqa bd Cursos. pendiente!
+<BR><BR>
+                <a class="navbar-brand" href="cursoFormulario">Registrar un curso </a>
+            </center>
+
+            </p>
+
+        </div>
+    </div>
+</footer>
+
+{% endblock %}

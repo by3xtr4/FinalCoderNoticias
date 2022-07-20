@@ -1,0 +1,43 @@
+{% extends "AppCoder/master.html" %}
+
+{% load static %}
+
+{% block contenidoSecciones %}
+<header style="height: 100px;  background-color: rgb(35, 36, 35); padding-top: 60px; height: 180px; ">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h3 class="mb-1">Registro listo!</h3>
+                    <h5 class="mb-2">Tus datos han sido validados, puedes acceder!</h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<footer class="footer bg-light">
+    <div class="container">
+        <div class="row" style="max-width: 600px; margin-left: auto; margin-right:auto">
+            <p>
+                <center>
+                    <!-- creo el form -->
+                    <center>
+                        <!-- condiciono y traigo django-->
+                        Usuario registrado con éxito!!!<br>
+                        <a class="navbar-brand" href="{% url 'login' %}">Debes iniciar sesión por primera vez! </a>
+                    
+    
+                    </center>
+
+                </center>
+
+            </p>
+
+        </div>
+    </div>
+</footer>
+
+{% endblock %}

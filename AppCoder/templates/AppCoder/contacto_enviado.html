@@ -1,0 +1,51 @@
+{% extends "AppCoder/master.html" %}
+
+{% load static %}
+
+{% block contenidoSecciones %}
+<header style="height: 100px;  background-color: rgb(35, 36, 35); padding-top: 60px; height: 150px; ">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h3 class="mb-1">Mensajes</h3>
+                    <h5 class="mb-2">Dejanos tu consulta, mensaje, comentario</h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<footer class="footer bg-light">
+    <div class="container">
+        <div class="row" style="max-width: 600px; margin-left: auto; margin-right:auto">
+            <p>
+                <center>
+                    <!-- creo el form -->
+                    <center>
+                        <!-- condiciono y traigo django-->
+                        {% if miFormulario.errors %}
+                        <p style="color: red; ">Están mal algunos datos o falta información</p>
+                        {% endif %}
+    
+                        <!-- creo el form -->
+                        
+                        Tu mensaje fue registrado, gracias por sumarte nuestra propuesta!<br><br>
+                        
+                        <a class="navbar-brand" href="consultasFormulario">Enviar un nuevo mensaje</a>
+                        <br><br>
+                    
+    
+                    </center>
+
+                </center>
+
+            </p>
+
+        </div>
+    </div>
+</footer>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "AppCoder/master.html" %}
+
+{% load static %}
+
+{% block contenidoSecciones %}
+<header style="height: 100px;  background-color: rgb(35, 36, 35); padding-top: 60px; height: 150px; ">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h3 class="mb-1">NUEVA NOTICIA</h3>
+                    <h5 class="mb-2">Información que te puede interesar</h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<footer class="footer bg-light">
+    <div class="container">
+        <div class="row" style="max-width: 600px; margin-left: auto; margin-right:auto">
+            <p>
+                <center>
+                    <!-- creo el form -->
+                    <center>
+                        <!-- condiciono y traigo django-->
+                        {% if miFormulario.errors %}
+                        <p style="color: red; ">Están mal algunos datos o falta información</p>
+                        {% endif %}
+    
+                        <!-- creo el form -->
+                        
+                        <form action="" method="POST">{% csrf_token %} <!-- agrego siempre la indicación de python -->
+                            Todos los campos sin importantes!<br>
+                            <table class="form-control form-control-lg">
+                                
+                                {{ miFormulario.as_table }}
+                                
+                            </table>
+                            <input class="form-control form-control-lg" type="submit" value="Crear NOTICIA" />
+                        </form>
+                    
+    
+                    </center>
+
+                </center>
+
+            </p>
+
+        </div>
+    </div>
+</footer>
+
+{% endblock %}
